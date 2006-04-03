@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "riscos/OSReadSysInfo.h"
 #include "VersionNum"
 
 typedef struct vector
@@ -141,9 +142,17 @@ int main(int argc, char *argv[])
    /* See if we can get the values from the OS */
    {
      void *value;
-     if (_swix(OS_ReadSysInfo, _INR(0,2)|_OUT(2), 6, 0, 23, &value)==NULL)
+     if (_swix(OS_ReadSysInfo, _INR(0,2)|_OUT(2),
+                               ReadSysInfoReason_KernelValue,
+                               0,
+                               ReadSysInfoReason_KernelValue_VecPtrTab,
+                               &value)==NULL)
        VecTable = value;
-     if (_swix(OS_ReadSysInfo, _INR(0,2)|_OUT(2), 6, 0, 24, &value)==NULL)
+     if (_swix(OS_ReadSysInfo, _INR(0,2)|_OUT(2),
+                               ReadSysInfoReason_KernelValue,
+                               0,
+                               ReadSysInfoReason_KernelValue_NVECTORS,
+                               &value)==NULL)
        NVectors = (int)value;
    }
 
