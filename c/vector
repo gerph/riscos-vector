@@ -165,17 +165,19 @@ int main(int argc, char *argv[])
              StrCmp(argv[i],"-h")==0)
          {
            int x=0;
+           int i;
            printf("Vector " Module_FullVersionAndDate " [JRF]\n");
-           printf("Syntax: Vector <names>");
+           printf("Syntax: Vector <names> | <numbers>");
            for (i = 0; i < sizeof(VecName) / sizeof(VecName[0]) &&
                        i < NVectors; i++)
            {
              char *vec=VecName[i];
              if ((i & 3) == 0)
-               printf("\n  "),x=2;
+               printf("\n  "),x=0;
              x+=printf("  %s",vec);
-             while (x % 16)
-               putchar(32),x++;
+             if ((i&3)!=3)
+               while (x % 16)
+                 putchar(32),x++;
            }
            if (x)
              puts("");
