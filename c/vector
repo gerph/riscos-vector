@@ -146,14 +146,21 @@ int main(int argc, char *argv[])
                                ReadSysInfoReason_KernelValue,
                                0,
                                ReadSysInfoReason_KernelValue_VecPtrTab,
-                               &value)==NULL)
+                               &value)==NULL &&
+         value != NULL)
        VecTable = value;
+     else
+       VecTable = (vector **) 0x7d8;
+
      if (_swix(OS_ReadSysInfo, _INR(0,2)|_OUT(2),
                                ReadSysInfoReason_KernelValue,
                                0,
                                ReadSysInfoReason_KernelValue_NVECTORS,
-                               &value)==NULL)
+                               &value)==NULL &&
+         value != 0)
        NVectors = (int)value;
+     else
+       NVectors = 0x30;
    }
 
    if (argc > 1)
@@ -167,7 +174,7 @@ int main(int argc, char *argv[])
            int x=0;
            int i;
            printf("Vector " Module_FullVersionAndDate " [JRF]\n");
-           printf("Syntax: Vector <names> | <numbers>");
+           printf("Syntax: Vector <names> | <numbers>\n");
            for (i = 0; i < sizeof(VecName) / sizeof(VecName[0]) &&
                        i < NVectors; i++)
            {
