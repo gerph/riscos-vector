@@ -1,0 +1,25 @@
+---
+
+resources:
+  build/native-build-tools:
+    phases: install
+    version: latest
+    path: $ROTOOL_DIR
+
+  build/root-env:
+    phases: install
+    version: latest
+    path: $ROBUILD_DIR/Env
+
+  build/build-libs:
+    phases: install
+    version: latest
+    path: $EXPORTS_DIR
+
+
+exports:
+  library/vector:
+    phases: install
+    newer: true
+    path: $INSTALL_DIR/Library
+
