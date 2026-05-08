@@ -34,7 +34,8 @@ jobs:
       # Test the command
       - echo
       - echo *** Run command ***
-      - aif32.Vector
+      - "|aif32.Vector"
+      - echo (we do not run the command as it will crash on RISC OS Pyromaniac due to different layout)
 
 
       # Done!
